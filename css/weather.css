@@ -1,16 +1,4 @@
 body {
-	header {
-		background-color: black;
-		display: flex;
-
-		nav {
-			width: 100%;
-		}
-
-		img.logo {
-			height: 2rem;
-		}
-	}
 
 	article.center {
 		section>div {

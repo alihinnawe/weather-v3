@@ -51,8 +51,19 @@ body {
 	}
 
 	header {
+		background-color: black;
 		margin-bottom: 0.5rem;
+		display: flex;
+
+		nav {
+			width: 100%;
+		}
+
+		img.logo {
+			height: 1rem;
+		}
 	}
+
 
 	main {
 		display: flex;
@@ -71,6 +82,17 @@ body {
 	}
 
 	footer {
+		
+		display: flex;
+		
+		label {
+			width: 5.5rem;
+		}
+		
+		input.message {
+			width: 100%;
+		}
+
 		input.message.success {
 			color: green;
 		}
