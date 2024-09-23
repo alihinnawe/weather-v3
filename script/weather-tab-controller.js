@@ -3,7 +3,7 @@ import TabController from "../../../tool/tab-controller.js";
 
 
 /**
- * The weather application controller type.
+ * The weather application tab controller type.
  */
 class WeatherTabController extends TabController {
 	static #OPEN_WEATHER_APP_KEY = "65d8e433543028fb83bd8709bebfad8f";
@@ -11,16 +11,13 @@ class WeatherTabController extends TabController {
 
 
 	/**
-	 * Initializes a new instance by registering the basic event listeners,
-	 * and initiating the controller logic.
+	 * Initializes a new instance.
 	 */
 	constructor () {
 		super("weather");
-		
+
 		// register controller event listeners
 		this.addEventListener("activated", event => this.processActivated());
-
-
 	}
 
 
@@ -31,18 +28,18 @@ class WeatherTabController extends TabController {
 	get locationQueryButton () { return this.locationSection.querySelector("button.query"); }
 	get locationCityInput () { return this.locationSection.querySelector("input.city"); }
 	get locationCountryInput () { return this.locationSection.querySelector("input.country"); }
-	get weatherOverviewTableBody () { return this.overviewSection.querySelector("table>tbody"); }
-	get weatherDetailsDateOutput () { return this.detailsSection.querySelector("div.main output.date"); }
-	get weatherDetailsCityOutput () { return this.detailsSection.querySelector("div.main input.city"); }
-	get weatherDetailsCountryOutput () { return this.detailsSection.querySelector("div.main input.country"); }
-	get weatherDetailsBackButton () { return this.detailsSection.querySelector("div.control>button.back"); }
-	get weatherDetailsToggleWaterButton () { return this.detailsSection.querySelector("div.control>button.toggle.water"); }
-	get weatherDetailsTogglePressureButton () { return this.detailsSection.querySelector("div.control>button.toggle.pressure"); }
+	get overviewTableBody () { return this.overviewSection.querySelector("table>tbody"); }
+	get detailsDateOutput () { return this.detailsSection.querySelector("div.main output.date"); }
+	get detailsCityOutput () { return this.detailsSection.querySelector("div.main input.city"); }
+	get detailsCountryOutput () { return this.detailsSection.querySelector("div.main input.country"); }
+	get detailsBackButton () { return this.detailsSection.querySelector("div.control>button.back"); }
+	get detailsToggleWaterButton () { return this.detailsSection.querySelector("div.control>button.toggle.water"); }
+	get detailsTogglePressureButton () { return this.detailsSection.querySelector("div.control>button.toggle.pressure"); }
 
-	get weatherDetailsWaterTable () { return this.detailsSection.querySelector("div.water>table"); }
-	get weatherDetailsWaterTableBody () { return this.weatherDetailsWaterTable.querySelector("tbody"); }
-	get weatherDetailsPressureTable () { return this.detailsSection.querySelector("div.pressure>table"); }
-	get weatherDetailsPressureTableBody () { return this.weatherDetailsPressureTable.querySelector("tbody"); }
+	get detailsWaterTable () { return this.detailsSection.querySelector("div.water>table"); }
+	get detailsWaterTableBody () { return this.detailsWaterTable.querySelector("tbody"); }
+	get detailsPressureTable () { return this.detailsSection.querySelector("div.pressure>table"); }
+	get detailsPressureTableBody () { return this.detailsPressureTable.querySelector("tbody"); }
 
 	get temperatureGraph () { return this.detailsSection.querySelector("span.temp>svg"); }
 	get temperatureGraphCoordinatesGroup () { return this.temperatureGraph.querySelector("g.coordinates"); }
@@ -53,18 +50,23 @@ class WeatherTabController extends TabController {
 	get windGraphGustRangeGroup () { return this.windGraph.querySelector("g.gust-range"); }
 	get windGraphSpeedGroup () { return this.windGraph.querySelector("g.wind"); }
 
+
+	/**
+	 * Handles activating this tab controller.
+	 */
 	async processActivated () {
-		// remove content of center
+		// Remove content of center article
 		this.center.innerHTML = "";
-		
+
 		// insert primary tab section into center article
-		const overviewSectionTemplate = document.querySelector("head>template.weather-overview");
-		this.center.append(overviewSectionTemplate.content.firstElementChild.cloneNode(true));
-		
+		const locationSectionTemplate = document.querySelector("head>template.weather-location");
+		this.center.append(locationSectionTemplate.content.firstElementChild.cloneNode(true));
+
 		// register event listeners
 		this.locationQueryButton.addEventListener("click", event => this.processWeatherForecast());
-		
 	}
+
+
 	/**
 	 * Handles querying a location and the associated weather forecast.
 	 */
@@ -86,7 +88,7 @@ class WeatherTabController extends TabController {
 			}
 
 			const tableRowTemplate = document.querySelector("head>template.weather-overview-row");
-			this.weatherOverviewTableBody.innerHTML = "";
+			this.overviewTableBody.innerHTML = "";
 
 			// collects daily forecast data, and adds a new table row whenever the
 			// day changes; aggregates the row data from the available 3-hour forecasts;
@@ -103,7 +105,7 @@ class WeatherTabController extends TabController {
 				if (dayForecast.dateText !== dateText) {
 					if (dayForecast.dateText !== null) {
 						const tableRow = tableRowTemplate.content.firstElementChild.cloneNode(true);
-						this.weatherOverviewTableBody.append(tableRow);
+						this.overviewTableBody.append(tableRow);
 
 						const dayThreeHourForecasts = dayForecast.list;
 						const date = new Date(dayThreeHourForecasts[0].dt * 1000);
@@ -156,12 +158,12 @@ class WeatherTabController extends TabController {
 			const detailsSectionTemplate = document.querySelector("head>template.weather-details");
 			this.center.append(detailsSectionTemplate.content.firstElementChild.cloneNode(true));
 
-			this.weatherDetailsDateOutput.value = date.toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric" });
-			this.weatherDetailsCityOutput.value = city.name;
-			this.weatherDetailsCountryOutput.value = city.country;
-			this.weatherDetailsBackButton.addEventListener("click", event => this.processBack());
-			this.weatherDetailsToggleWaterButton.addEventListener("click", event => this.weatherDetailsWaterTable.classList.toggle("hidden"));
-			this.weatherDetailsTogglePressureButton.addEventListener("click", event => this.weatherDetailsPressureTable.classList.toggle("hidden"));
+			this.detailsDateOutput.value = date.toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+			this.detailsCityOutput.value = city.name;
+			this.detailsCountryOutput.value = city.country;
+			this.detailsBackButton.addEventListener("click", event => this.processBack());
+			this.detailsToggleWaterButton.addEventListener("click", event => this.detailsWaterTable.classList.toggle("hidden"));
+			this.detailsTogglePressureButton.addEventListener("click", event => this.detailsPressureTable.classList.toggle("hidden"));
 
 			this.#displayDayTemperatureForecast(threeHourForecasts);
 			this.#displayDayWindSpeedForecast(threeHourForecasts);
@@ -297,14 +299,14 @@ class WeatherTabController extends TabController {
 	 */
 	async #displayDayWaterForecast (threeHourForecasts) {
 		const tableRowTemplate = document.querySelector("head>template.weather-details-water-row");
-		this.weatherDetailsWaterTableBody.innerHTML = "";
+		this.detailsWaterTableBody.innerHTML = "";
 
 		const delimiterPosition = threeHourForecasts[0].dt_txt.indexOf(" ");
 		for (const threeHourForecast of threeHourForecasts) {
 			const timeText = threeHourForecast.dt_txt.substring(delimiterPosition + 1, delimiterPosition + 6);
 
 			const tableRow = tableRowTemplate.content.firstElementChild.cloneNode(true);
-			this.weatherDetailsWaterTableBody.append(tableRow);
+			this.detailsWaterTableBody.append(tableRow);
 
 			tableRow.querySelector("td.time").innerText = threeHourForecast.dt_txt.substring(delimiterPosition + 1, delimiterPosition + 6);
 			tableRow.querySelector("td.rain").innerText = (threeHourForecast.rain ? threeHourForecast.rain["3h"] : 0).toString();
@@ -321,14 +323,14 @@ class WeatherTabController extends TabController {
 	 */
 	async #displayDayPressureForecast (threeHourForecasts) {
 		const tableRowTemplate = document.querySelector("head>template.weather-details-pressure-row");
-		this.weatherDetailsPressureTableBody.innerHTML = "";
+		this.detailsPressureTableBody.innerHTML = "";
 
 		const delimiterPosition = threeHourForecasts[0].dt_txt.indexOf(" ");
 		for (const threeHourForecast of threeHourForecasts) {
 			const timeText = threeHourForecast.dt_txt.substring(delimiterPosition + 1, delimiterPosition + 6);
 
 			const tableRow = tableRowTemplate.content.firstElementChild.cloneNode(true);
-			this.weatherDetailsPressureTableBody.append(tableRow);
+			this.detailsPressureTableBody.append(tableRow);
 
 			tableRow.querySelector("td.time").innerText = threeHourForecast.dt_txt.substring(delimiterPosition + 1, delimiterPosition + 6);
 			tableRow.querySelector("td.pressure.main").innerText = threeHourForecast.main.pressure + " hPa";
@@ -389,4 +391,7 @@ class WeatherTabController extends TabController {
 window.addEventListener("load", event => {
 	const controller = new WeatherTabController();
 	console.log(controller);
+
+	// activate initial tab
+	controller.tabControl.click();
 });

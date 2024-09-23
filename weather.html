@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="dcterms.rightsHolder" content="Ali Hinnawe" />
+		<meta name="dcterms.rightsHolder" content="Sascha Baumeister" />
 		<meta name="dcterms.rights" content="all rights reserved" />
 		<meta name="dcterms.dateCopyrighted" content="2024" />
 		<meta charset="utf-8" />
@@ -10,7 +10,9 @@
 		<link rel="icon" type="image/jpeg" href="image/weather.png" />
 		<link rel="stylesheet" type="text/css" href="css/general.css" />
 		<link rel="stylesheet" type="text/css" href="css/weather.css" />
+		<link rel="stylesheet" type="text/css" href="css/calculator.css" />
 		<script type="module" async="true" src="script/weather-tab-controller.js"></script>
+		<script type="module" async="true" src="script/calculator-tab-controller.js"></script>
 
 		<template class="weather-location">
 			<section class="weather-location">
@@ -146,6 +148,37 @@
 				</div>
 			</section>
 		</template>
+
+		<template class="calculator">
+			<section class="calculator">
+				<div class="main">
+					<input type="number" class="operand left" value="0" />
+					<span class="operator">
+						<div>
+							<button type="button" class="add">+</button>
+							<button type="button" class="sub">-</button>
+						</div>
+						<div>
+							<button type="button" class="mul">*</button>
+							<button type="button" class="div">/</button>
+							<button type="button" class="mod">%</button>
+						</div>
+						<div>
+							<button type="button" class="power">xʸ</button>
+							<button type="button" class="root">√</button>
+							<button type="button" class="log">㏒</button>
+						</div>
+					</span>
+					<input type="number" class="operand right" value="0" />
+					<span class="equals">=</span>
+					<output class="result" />
+				</div>
+				<div class="control">
+					<button type="button" class="copy">copy</button>
+					<button type="button" class="reset">reset</button>
+				</div>
+			</section>
+		</template>
 	</head>
 
 	<template class="weather-details-water-row">
@@ -170,19 +203,17 @@
 	<body>
 		<header>
 			<nav class="tabs">
-				<button class="weather">Wetter</button> 
-				<button class="calculator" >Kalkulator</button> 
-				<button class="dice">Würfel</button> 
-				<button class="notes">Notizen</button> 
+				<button class="weather">Wetter</button>
+				<button class="calculator">Kalkulator</button>
+				<button class="dice">Würfel</button>
+				<button class="notes">Notizen</button>
 			</nav>
 			<img class="logo" src="image/figd-logo.png" />
 		</header>
 
 		<main>
 			<article class="left hidden"></article>
-			<article class="center">
-
-			</article>
+			<article class="center"></article>
 			<article class="right hidden"></article>
 		</main>
 

@@ -52,18 +52,16 @@ body {
 
 	header {
 		display: flex;
-		border-radius: .75rem;
-		background-color: black;
+		border-radius: 0.75rem;
 		margin-bottom: 0.5rem;
+		background-color: black;
 
 		nav.tabs>*.active {
-
 			color: green;
-
 		}
 
 		nav.tabs {
-			margin: 0.5rem .5rem 0.5rem .5rem;
+			margin: 0.5rem 0 0.5rem 0.5rem;
 			width: 100%;
 		}
 
@@ -72,7 +70,6 @@ body {
 			height: 1.4rem;
 		}
 	}
-
 
 	main {
 		display: flex;
@@ -87,17 +84,22 @@ body {
 			section {
 				margin-bottom: 0.5rem;
 			}
+
+			section>div {
+				padding: 0 0.1rem;
+				margin-bottom: 0.25rem;
+				background-color: var(--corporate-division-color);
+			}
 		}
 	}
 
 	footer {
-		
 		display: flex;
-		
+
 		label {
 			width: 5.5rem;
 		}
-		
+
 		input.message {
 			width: 100%;
 		}

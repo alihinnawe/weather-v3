@@ -1,0 +1,23 @@
+body {
+	article.center {
+		section.calculator {
+			div.main {
+				input.operand {
+					width: 5rem;
+				}
+
+				span.operator {
+					vertical-align: middle;
+
+					div {
+						text-align: center;
+
+						button {
+							width: 1.5rem;
+						}
+					}
+				}
+			}
+		}				
+	}
+}

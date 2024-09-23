@@ -1,13 +1,6 @@
 body {
-
 	article.center {
-		section>div {
-			padding: 0rem 0.1rem;
-			margin-top: 0.25rem;
-			background-color: var(--corporate-division-color);
-		}
-
-		section.location {
+		section.weather-location {
 			input.country {
 				width: 1.5rem;
 			}
