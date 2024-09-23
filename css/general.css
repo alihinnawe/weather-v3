@@ -56,6 +56,12 @@ body {
 		background-color: black;
 		margin-bottom: 0.5rem;
 
+		nav.tabs>*.active {
+
+			color: green;
+
+		}
+
 		nav.tabs {
 			margin: 0.5rem .5rem 0.5rem .5rem;
 			width: 100%;
