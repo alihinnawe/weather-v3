@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="dcterms.rightsHolder" content="Ali Hinnawe" />
+		<meta name="dcterms.rightsHolder" content="Sascha Baumeister" />
 		<meta name="dcterms.rights" content="all rights reserved" />
 		<meta name="dcterms.dateCopyrighted" content="2024" />
 		<meta charset="utf-8" />
@@ -11,8 +11,12 @@
 		<link rel="stylesheet" type="text/css" href="css/general.css" />
 		<link rel="stylesheet" type="text/css" href="css/weather.css" />
 		<link rel="stylesheet" type="text/css" href="css/calculator.css" />
+		<link rel="stylesheet" type="text/css" href="css/dice.css" />
+	
 		<script type="module" async="true" src="script/weather-tab-controller.js"></script>
 		<script type="module" async="true" src="script/calculator-tab-controller.js"></script>
+		<script type="module" async="true" src="script/dice-tab-controller.js"></script>
+
 
 		<template class="weather-location">
 			<section class="weather-location">
@@ -150,6 +154,7 @@
 		</template>
 
 		<template class="calculator">
+
 			<section class="calculator">
 				<div class="main">
 					<input type="number" class="operand left" value="0" />
@@ -179,6 +184,31 @@
 				</div>
 			</section>
 		</template>
+		
+		<template class="roll">
+			<section class="roll">
+				<div class="main">
+					<span class="left">
+						<h1>Spieler 1</h1>
+						<button type="button" class="first"><img src="image/dice.png"/></button>
+						<button type="button" class="second"><img src="image/dice.png"/></button>
+						<button type="button" class="third"><img src="image/dice.png"/></button>
+					</span>
+					<span class="right">
+						<h1>Spieler 2</h1>
+						<button type="button" class="first"><img src="image/dice.png"/></button>
+						<button type="button" class="second"><img src="image/dice.png"/></button>
+						<button type="button" class="third"><img src="image/dice.png"/></button>
+					</span>
+				</div>
+				<div class="control">
+					<button type="button" class="evaluate">bewerten</button>					
+					<button type="button" class="reset">neues Spiel</button>
+
+				</div>
+			</section>
+		</template>
+
 	</head>
 
 	<template class="weather-details-water-row">
