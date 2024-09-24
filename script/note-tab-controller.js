@@ -27,6 +27,11 @@ class NoteTabController extends TabController {
 
 	}
 	
+	get todayTime () {
+		return document.querySelector(".time");
+
+}
+
 
     async processActivated() {
         // Remove content of center article
@@ -38,6 +43,7 @@ class NoteTabController extends TabController {
         this.center.append(noteSectionOverview); 
 
         const todayDateInput = this.todayDate; 
+		const todayTimeInput = this.todayTime;
         if (todayDateInput) {
             let nowDate = new Date();
             let date = nowDate.getFullYear() + '-' + (nowDate.getMonth() + 1).toString().padStart(2, '0') + '-' + nowDate.getDate().toString().padStart(2, '0');
@@ -46,6 +52,16 @@ class NoteTabController extends TabController {
         } else {
             console.error("Date input not found!");
         }
+		
+		if(todayTimeInput) {
+			let nowTime = new Date();
+			let time = nowTime.getHours().toString().padStart(2, '0') + ':' + nowTime.getMinutes().toString().padStart(2, '0');
+			todayTimeInput.value = time; 
+		}
+		
+		else {
+        console.error("Time input not found!");
+		}
     }
 }
 
