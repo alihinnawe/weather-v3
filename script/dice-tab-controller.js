@@ -4,7 +4,7 @@ import Dice from "../../../tool/dice.js";
 
 
 /**
- * The dice application controller type.
+ * The dice application tab controller type.
  */
 class DiceTabController extends TabController {
 	#players;
@@ -15,17 +15,16 @@ class DiceTabController extends TabController {
 	 * and initiating the controller logic.
 	 */
 	constructor () {
-		super("roll");
-		
-		// register controller event listeners
-		this.addEventListener("activated", event => this.processActivated());
-		
+		super("dice");
 		this.#players = [
 			{ dice: [ new Dice(), new Dice(), new Dice() ] },
 			{ dice: [ new Dice(), new Dice(), new Dice() ] }
 		];
 
+		// register controller event listeners
+		this.addEventListener("activated", event => this.processActivated());
 	}
+
 
 	// get/set accessors
 	get rollSection () { return this.center.querySelector("section.roll"); }
@@ -37,20 +36,30 @@ class DiceTabController extends TabController {
 	get rightDiceButtons () { return Array.from(this.rightSpan.querySelectorAll("button")); }
 
 
-
 	/**
 	 * Handles activating this tab controller.
 	 */
 	async processActivated () {
 		// Remove content of center article
 		this.center.innerHTML = "";
-		console.log("111");
-		// insert primary tab section into center article
-		const diceSectionTemplate = document.querySelector("template.roll");
-		this.center.append(diceSectionTemplate.content.firstElementChild.cloneNode(true));
-		this.resultOutput.value = "0";
+		this.messageOutput.value = "";
 
-		
+		// insert primary tab section into center article
+		const rollSectionTemplate = document.querySelector("head>template.roll");
+		this.center.append(rollSectionTemplate.content.firstElementChild.cloneNode(true));
+
+		// display dice
+		for (let playerIndex = 0; playerIndex < this.#players.length; ++playerIndex) {
+			const player = this.#players[playerIndex];
+			const diceButtons = playerIndex == 0 ? this.leftDiceButtons : this.rightDiceButtons;
+
+			for (let diceIndex = 0; diceIndex < player.dice.length; ++diceIndex) {
+				const dice = player.dice[diceIndex];
+				const fileName = Number.isNaN(dice.faceValue) ? "dice.png" : "dice-" + dice.faceValue + "-6.png";
+				diceButtons[diceIndex].querySelector("img").src = "image/" + fileName;
+			}
+		}
+
 		// register event listeners
 		this.leftDiceButtons[0].addEventListener("click", event => this.processDiceRoll(0, 0));
 		this.leftDiceButtons[1].addEventListener("click", event => this.processDiceRoll(0, 1));
@@ -60,8 +69,9 @@ class DiceTabController extends TabController {
 		this.rightDiceButtons[2].addEventListener("click", event => this.processDiceRoll(1, 2));
 		this.evaluateButton.addEventListener("click", event => this.processEvaluation());
 		this.resetButton.addEventListener("click", event => this.processDiceReset());
-
 	}
+
+
 	/**
 	 * Processes rolling a specific dice.
 	 * @param playerIndex the player index

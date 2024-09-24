@@ -12,11 +12,11 @@
 		<link rel="stylesheet" type="text/css" href="css/weather.css" />
 		<link rel="stylesheet" type="text/css" href="css/calculator.css" />
 		<link rel="stylesheet" type="text/css" href="css/dice.css" />
-	
+		<link rel="stylesheet" type="text/css" href="css/note.css" />
 		<script type="module" async="true" src="script/weather-tab-controller.js"></script>
 		<script type="module" async="true" src="script/calculator-tab-controller.js"></script>
 		<script type="module" async="true" src="script/dice-tab-controller.js"></script>
-
+		<script type="module" async="true" src="script/note-tab-controller.js"></script>
 
 		<template class="weather-location">
 			<section class="weather-location">
@@ -153,8 +153,54 @@
 			</section>
 		</template>
 
-		<template class="calculator">
+		<template class="weather-details-water-row">
+			<tr>
+				<td class="time"></td>
+				<td class="rain"></td>
+				<td class="humidity"></td>
+				<td class="cloudiness"></td>
+				<td class="visibility"></td>
+			</tr>
+		</template>
 
+		<template class="weather-details-pressure-row">
+			<tr>
+				<td class="time"></td>
+				<td class="pressure main"></td>
+				<td class="pressure sea"></td>
+				<td class="pressure ground"></td>
+			</tr>
+		</template>
+		
+		<template class="note">
+			<section class="note">
+				<div class="notes">
+					<table>
+						<thead>
+							<tr>
+								<th>Datum</th>
+								<th>Zeit</th>
+								<th>Notiz</th>
+							</tr>
+						</thead>
+						<tbody class="scrollable-body">
+							<tr>
+								<td><input type="date" class="date" /></td>
+								<td><input type="time" class="time" /></td>
+								<td><input type="text" class="note-input" placeholder="Notiz eingeben" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="control">
+					<button type="button" class="new">Neu</button>
+					<button type="button" class="save">Speichern</button>
+					<button type="button" class="load">Laden</button>
+				</div>
+			</section>
+		</template>
+		
+		<template class="calculator">
 			<section class="calculator">
 				<div class="main">
 					<input type="number" class="operand left" value="0" />
@@ -184,51 +230,31 @@
 				</div>
 			</section>
 		</template>
-		
+
 		<template class="roll">
 			<section class="roll">
 				<div class="main">
 					<span class="left">
 						<h1>Spieler 1</h1>
-						<button type="button" class="first"><img src="image/dice.png"/></button>
-						<button type="button" class="second"><img src="image/dice.png"/></button>
-						<button type="button" class="third"><img src="image/dice.png"/></button>
+						<button type="button" class="first"><img src="image/dice.png" /></button>
+						<button type="button" class="second"><img src="image/dice.png" /></button>
+						<button type="button" class="third"><img src="image/dice.png" /></button>
 					</span>
 					<span class="right">
 						<h1>Spieler 2</h1>
-						<button type="button" class="first"><img src="image/dice.png"/></button>
-						<button type="button" class="second"><img src="image/dice.png"/></button>
-						<button type="button" class="third"><img src="image/dice.png"/></button>
+						<button type="button" class="first"><img src="image/dice.png" /></button>
+						<button type="button" class="second"><img src="image/dice.png" /></button>
+						<button type="button" class="third"><img src="image/dice.png" /></button>
 					</span>
 				</div>
 				<div class="control">
-					<button type="button" class="evaluate">bewerten</button>					
+					<button type="button" class="evaluate">bewerten</button>
 					<button type="button" class="reset">neues Spiel</button>
-
 				</div>
 			</section>
 		</template>
-
 	</head>
 
-	<template class="weather-details-water-row">
-		<tr>
-			<td class="time"></td>
-			<td class="rain"></td>
-			<td class="humidity"></td>
-			<td class="cloudiness"></td>
-			<td class="visibility"></td>
-		</tr>
-	</template>
-
-	<template class="weather-details-pressure-row">
-		<tr>
-			<td class="time"></td>
-			<td class="pressure main"></td>
-			<td class="pressure sea"></td>
-			<td class="pressure ground"></td>
-		</tr>
-	</template>
 
 	<body>
 		<header>
@@ -238,7 +264,7 @@
 				<button class="dice">Würfel</button>
 				<button class="notes">Notizen</button>
 			</nav>
-			<img class="logo" src="image/figd-logo.png" />
+			<img class="logo" src="image/logo.png" />
 		</header>
 
 		<main>

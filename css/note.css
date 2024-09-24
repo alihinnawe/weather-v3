@@ -1,0 +1,4 @@
+.notes table th, 
+.notes table td {
+    border: 1px solid black;
+}

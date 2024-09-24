@@ -57,6 +57,7 @@ class WeatherTabController extends TabController {
 	async processActivated () {
 		// Remove content of center article
 		this.center.innerHTML = "";
+		this.messageOutput.value = "";
 
 		// insert primary tab section into center article
 		const locationSectionTemplate = document.querySelector("head>template.weather-location");

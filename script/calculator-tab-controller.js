@@ -41,6 +41,7 @@ class CalculatorTabController extends TabController {
 	async processActivated () {
 		// Remove content of center article
 		this.center.innerHTML = "";
+		this.messageOutput.value = "";
 
 		// insert primary tab section into center article
 		const calculatorSectionTemplate = document.querySelector("head>template.calculator");
