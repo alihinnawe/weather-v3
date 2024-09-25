@@ -6,7 +6,7 @@ import TabController from "../../../tool/tab-controller.js";
  * The weather application tab controller type.
  */
 class WeatherTabController extends TabController {
-	static #OPEN_WEATHER_APP_KEY = "65d8e433543028fb83bd8709bebfad8f";
+	static #OPEN_WEATHER_APP_KEY = "yours";
 	static #OPEN_WEATHER_APP_ORIGIN = "https://api.openweathermap.org";
 
 
