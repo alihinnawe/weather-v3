@@ -39,7 +39,6 @@ class NoteTabController extends TabController {
 
         // Call the method to set event listeners after the DOM has updated
         this.setButtonEventListeners();
-		this.removeButtonEventListener();
     }
 
     setButtonEventListeners() {
@@ -51,6 +50,27 @@ class NoteTabController extends TabController {
         }
     }
 	
+	removeButtonEventListener() {
+		const tableBodyInputText = this.tableNote.querySelector("tr:first-child td input.note-input");
+
+		if (tableBodyInputText) {
+			tableBodyInputText.addEventListener('input', () => {
+				// Get all the note-input fields in the table
+				const allNoteInputs = Array.from(this.tableNote.querySelectorAll('input.note-input'));
+
+				// Find the index of the current input
+				const index = allNoteInputs.indexOf(tableBodyInputText);
+
+				if (tableBodyInputText.value.trim() === "") {
+					// If input is empty, remove the corresponding row using the index
+					const rowToRemove = this.tableNote.querySelectorAll('tr')[index];
+					if (rowToRemove) {
+						rowToRemove.remove(); // Remove the row based on the index
+					}
+				}
+			});
+		}
+	}
 
 
 	// CREATE AN INSTANCE VARIABLE FOR THE ROW RECORD AS AN ARRAY OF OBJECTS.
@@ -109,7 +129,6 @@ class NoteTabController extends TabController {
 			const time = nowDate.getHours().toString().padStart(2, '0') + ':' + nowDate.getMinutes().toString().padStart(2, '0');    
 			const tableBodyDate = this.tableNote.querySelector("tr:first-child td input.date");    
 			const tableBodyTime = this.tableNote.querySelector("tr:first-child td input.time");
-			const tableBodyInputText = this.tableNote.querySelector("tr:first-child td input.note-input");
 
 			if (tableBodyDate) {
 				tableBodyDate.value = date;
@@ -123,23 +142,10 @@ class NoteTabController extends TabController {
 				console.error("Time input not found!");
 			}
 			
-			if (tableBodyInputText) {
-				tableBodyInputText.addEventListener('input', () => {
-					// Get all the note-input fields in the table
-					const allNoteInputs = Array.from(this.tableNote.querySelectorAll('input.note-input'));
+			this.removeButtonEventListener();
 
-					// Find the index of the current input
-					const index = allNoteInputs.indexOf(tableBodyInputText);
+			
 
-					if (tableBodyInputText.value.trim() === "") {
-						// If input is empty, remove the corresponding row using the index
-						const rowToRemove = this.tableNote.querySelectorAll('tr')[index];
-						if (rowToRemove) {
-							rowToRemove.remove(); // Remove the row based on the index
-						}
-					}
-				});
-			}
 		} else {
 			console.error("Note row template not found!");
 		}
