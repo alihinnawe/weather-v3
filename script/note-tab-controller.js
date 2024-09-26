@@ -7,6 +7,7 @@ class NoteTabController extends TabController {
 
     todayDateInput;
     todayTimeInput;
+	notes;
 
     /**
      * Initializes a new instance.
@@ -119,6 +120,7 @@ class NoteTabController extends TabController {
 		}
 	}
 	async newNotice() {
+		let notes = [];
 		const noteTbodyTemplate = document.querySelector("template.note-row");
 		if (noteTbodyTemplate) {
 			const noteTbodyOverview = noteTbodyTemplate.content.firstElementChild.cloneNode(true);
@@ -129,6 +131,7 @@ class NoteTabController extends TabController {
 			const time = nowDate.getHours().toString().padStart(2, '0') + ':' + nowDate.getMinutes().toString().padStart(2, '0');    
 			const tableBodyDate = this.tableNote.querySelector("tr:first-child td input.date");    
 			const tableBodyTime = this.tableNote.querySelector("tr:first-child td input.time");
+			const tableBodyInputText = this.tableNote.querySelector("tr:first-child td input.note-input");
 
 			if (tableBodyDate) {
 				tableBodyDate.value = date;
@@ -142,9 +145,27 @@ class NoteTabController extends TabController {
 				console.error("Time input not found!");
 			}
 			
+			tableBodyInputText.addEventListener('input', () => {
+				// Get all the note-input fields in the table
+				const allNoteInputs = Array.from(this.tableNote.querySelectorAll('input.note-input'));
+                console.log("allNoteInputs",allNoteInputs);
+				// Find the index of the current input
+				const index = allNoteInputs.indexOf(tableBodyInputText);
+				console.log("indexxxxxxxx",index);
+				notes.push(allNoteInputs[index].value);
+				
+				if(notes) {
+					notes =[];
+					notes.push(allNoteInputs[index].value);
+				}
+				//notes.push({index:index,tableBodyDate:tableBodyDate.value,tableBodyTime:tableBodyTime.value,tableBodyInputText:tableBodyInputText.value});
+				//console.log("notes array",notes[notes.length -1]);
+				console.log("notesssssss",notes);
+			});
+			
+			
 			this.removeButtonEventListener();
 
-			
 
 		} else {
 			console.error("Note row template not found!");
